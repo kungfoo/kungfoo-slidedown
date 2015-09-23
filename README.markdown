@@ -1,4 +1,4 @@
-# Slidedown
+# Ergon Slidedown
 
 - [Gradle Goodies Versioning Plugin](?src=versioning_plugin.md)
 - [Another Presentation](?src=sample.md)
@@ -92,6 +92,8 @@ on mobile devices.
 - Push to master branch
 - Wait 1 min: Published to http://egge.ergon.ch/static/ergon-slidedown/
 - Have fun
+
+***
 
 # The End
 
