@@ -32,6 +32,7 @@ Write your presentations in a text editor.
 - No fancy WYSIWIG editor
 - No hand-written HTML
 - Just text (Markdown)
+- Publish by pushing via `git`.
 
 Separate slides with `***`.
 
