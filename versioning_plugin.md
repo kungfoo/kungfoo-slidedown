@@ -17,7 +17,7 @@ apply plugin: 'egg-versioning'
 - `version.properties` einchecken
 - Maven Release Plugin → SNAPSHOT-itis, automagisch erstellte Commits
 - Shell Scripts die Files anfassen
-- sicher noch andere...
+- Sicher noch andere...
 
 ***
 
@@ -33,11 +33,11 @@ apply plugin: 'egg-versioning'
 
 # Führt zu (contd.)
 
-- Komplizierter Release-Job
+- Kompliziertem Release-Job
 	- Shell Script auf Jenkins
 	- Jenkins ändert Files
 	- Jenkins muss committen, pushen, ...
-- Tags verschieben plötzlich attraktiv
+- Tags verschieben plötzlich attraktiv/nötig
 
 ***
 
@@ -71,7 +71,7 @@ Nachteil: Er ist nicht besonders human-readable.
 
 ***
 
-# `egg-versioning`: was bringt's?
+# egg-versioning: was bringt's?
 
 - Keine Files müssen mehr angepasst werden
 - Version ist via `git describe` widerspruchsfrei definiert
