@@ -41,7 +41,7 @@ apply plugin: 'egg-versioning'
 
 ***
 
-# enter stage left: `git describe`
+# enter stage right: `git describe`
 
 ***
 
@@ -73,10 +73,12 @@ Nachteil: Er ist nicht besonders human-readable.
 
 # egg-versioning: was bringt's?
 
+- Ein Wrapper um `git describe` mit 'schlauen' Defaults
 - Keine Files müssen mehr angepasst werden
 - Version ist via `git describe` widerspruchsfrei definiert
 - Tags und History definieren die Version der Artefakte
 - `version.properties` für alle Artefakte automatisch definiert; auf dem Klassenpfad
+- `gradle describeVersion` zeigt die Version an, die aktuell entstehen würde, wenn man das Artefakt baut
 
 ***
 
@@ -101,6 +103,8 @@ ergon.versioning {
 	annotatedTagsOnly = true
 }
 ```
+
+Nur annotated Tags fliessen in die berechnete Version ein.
 
 ***
 
@@ -168,6 +172,7 @@ Lösen via `.gitignore`.
 - Versionen die entstehen
 	- `feature/with-completion-3-abdc5`
 	- `feature/extract-user-data-5-55621`
+- Funktioniert auch mit Bugfix-Branches die bei einem Tag anfangen.
 
 
 ***
