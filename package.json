@@ -1,0 +1,14 @@
+{
+  "name": "slidedown",
+  "version": "0.1.0",
+  "description": "Markdown slide decks",
+  "main": "slidedown.js",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "highlight.js": "^8.1.0",
+    "marked": "^0.3.2"
+  }
+}
