@@ -1,7 +1,179 @@
 # EGG Versioning Plugin
 ## Versioning made stupidly easy
+Silvio Heuberger, Ergon Informatik AG
 
 ***
 
-# Wieso?
+# TL;DR
 
+```java
+apply plugin: 'egg-versioning'
+```
+
+***
+
+# Der alte Weg
+
+- `version.properties` einchecken
+- Maven Release Plugin → SNAPSHOT-itis, automagisch erstellte Commits
+- Shell Scripts die Files anfassen
+- sicher noch andere...
+
+***
+
+#Führt zu
+
+- Müll in der History
+	- Jeder Zwischenrelease muss tagged werden
+	- Tags für Release
+	- Nightly Builds
+	- Deployments für Testing
+
+*** 
+
+# Führt zu (contd.)
+
+- Komplizierter Release-Job
+	- Shell Script auf Jenkins
+	- Jenkins ändert Files
+	- Jenkins muss committen, pushen, ...
+- Tags verschieben plötzlich attraktiv
+
+***
+
+# enter stage left: `git describe`
+
+***
+
+# `git describe`
+
+`git` definiert sowieso schon zu jedem Zustand der History einen eindeutigen Identifier: den Commit-Hash
+
+```
+04afafa
+```
+
+Dieser Hash reicht aus, um genau diesen Zustand widerspruchsfrei in der History zu identifizieren.
+
+Nachteil: Er ist nicht besonders human-readable.
+
+***
+
+# `git describe`
+
+`git describe` kann aber auch etwas smarter sein:
+
+- Tags auswerten um den Identifier anzureichern
+- mit Patterns auf besondere Tags matchen
+- rausfinden ob der Build tatsächlich reproduzierbar ist
+- auch für Feature-Branches
+
+
+***
+
+# `egg-versioning`: was bringt's?
+
+- Keine Files müssen mehr angepasst werden
+- Version ist via `git describe` widerspruchsfrei definiert
+- Tags und History definieren die Version der Artefakte
+- `version.properties` für alle Artefakte automatisch definiert; auf dem Klassenpfad
+
+***
+
+# Kurze Demo
+
+***
+
+# Optionen
+```gradle
+ergon.versioning {
+	match = "database-*"
+}
+```
+
+Prefix-Matching auf Tags, falls mehrere Projekte/Artefakte in einem git-Repo zusammen sind.
+
+***
+
+# Optionen
+```gradle
+ergon.versioning {
+	annotatedTagsOnly = true
+}
+```
+
+***
+
+# Optionen
+```gradle
+ergon.versioning {
+	firstParentOnly = true
+	longFormat = true
+	replaceGlobWith = { match, tag ->
+		"do-some-magic-${tag}"
+	}
+}
+```
+Besonders die letzte interessant:
+
+- Default: Trimt Prefix aus `match`
+- Custom: Closure mit zwei Parametern, soll einen String zurückgeben.
+
+***
+
+# SNAPSHOT
+
+Was ist jetzt genau mit SNAPSHOT?
+
+***
+
+![NOPE!](images/snapshot-nope.jpg)
+
+_Existiert nicht mehr._
+
+***
+
+# Die aktuellste Version tracken
+
+```gradle
+dependencies {
+	compile "ch.ergon.sample:database-api:1.2.+"
+}
+```
+
+Gradle macht auf der letzten Stelle *semantic Versioning*.
+
+- `1.2.1` ist neuer als `1.2.0`
+- `1.2.1` ist neuer als `1.2.0-10-abfggd`
+- `1.2.1-2-5efgb` ist neuer als `1.2.1`
+
+***
+
+# Bonus: Feature Branches
+
+- Branch am Anfang taggen.
+- Versionen die entstehen
+	- `feature/with-completion-3-abdc5`
+	- `feature/extract-user-data-5-55621`
+
+
+***
+
+# Bonus: Releasing
+
+1. `git tag 1.2.2`
+2. `git push --tags`
+3. Release Job starten mit `1.2.2`
+4. Rinse, repeat.
+
+*** 
+
+# Bonus: Releasing
+
+Intermediate Version publishen?
+1. Release Job starten.
+
+***
+
+# Fragen?
+![NOPE!](images/no-idea.png)
