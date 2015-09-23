@@ -33,7 +33,7 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmai
   color: rgb(64, 100, 37);
 }
 
-/* Ergon Cyan */
+/* Ergon Brown */
 .hljs-number,
 .hljs-command,
 .hljs-string,
@@ -44,7 +44,7 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmai
 .hljs-regexp,
 .hljs-hexcolor,
 .hljs-link_url {
-  color: rgb(164, 216, 230);
+  color: rgb(153, 129, 0);
 }
 
 /* Ergon Blue */
