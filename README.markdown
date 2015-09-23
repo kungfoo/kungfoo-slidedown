@@ -1,6 +1,7 @@
 # Slidedown
 
-- [Gradle Goodies Versioning Plugin](?src=versioning_plugin.md) 
+- [Gradle Goodies Versioning Plugin](?src=versioning_plugin.md)
+- [Another Presentation](?src=sample.md)
 - [original](http://danieltao.com/slidedown)
 
 ***
@@ -81,35 +82,17 @@ on mobile devices.
 
 # How to use it
 
-```javascript
-// Fetch the source Markdown using an AJAX request
-Slidedown.fromXHR('path/to/slides.markdown');
+- Clone the following repository:
 
-// Or if you have the Markdown in a string already
-Slidedown.fromMarkdown('markdown source');
+    https://stash.ergon.ch/projects/STAFF/repos/ergon-slidedown/browse
 
-// Or if you actually have HTML rendered from Markdown already
-Slidedown.fromHTML('html source');
-```
-
-***
-
-# How to use it
-
-By default, slides will be dumped directly into the document's `<body>` element.
-You can change this:
-
-```javascript
-var slides = document.getElementById('slides');
-Slidedown.fromMarkdown('markdown source').to(slides);
-```
-
-Or even just:
-
-```javascript
-Slidedown.fromMarkdown('markdown source').to('#slides');
-```
-
-***
+- Make changes
+- Add you markdown file to the top of this file
+- Load index.html in browser
+- Push to master branch
+- Wait 1 min: Published to http://egge.ergon.ch/static/ergon-slidedown/
+- Have fun
 
 # The End
+
+Cheers, Silvio
