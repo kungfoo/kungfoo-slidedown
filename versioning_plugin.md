@@ -68,6 +68,23 @@ Nachteil: Er ist nicht besonders human-readable.
 - rausfinden ob der Build tatsächlich reproduzierbar ist
 - auch für Feature-Branches
 
+***
+
+# `git describe`
+
+Aus was setzt sich die Version zusammen?
+
+`git describe --long` ergibt:
+
+```
+1.2.0-1-g258101a
+^     ^  ^
+|     |  |_______ Hash des aktuellen Zustands
+|     |__________ Wieviele Commits 'voraus' gegenüber dem Tag
+|________________ Letzter gematchter Tag
+```
+
+Ohne `--long` ergibt sich (wenn man genau auf einem Tag 'sitzt') nur die Version: `1.2.1`
 
 ***
 
