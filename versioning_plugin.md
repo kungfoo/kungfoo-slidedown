@@ -101,6 +101,8 @@ Ohne `--long` ergibt sich (wenn man genau auf einem Tag 'sitzt') nur die Version
 
 # Kurze Demo
 
+[Demo Projekt auf gerrit](https://gerrit.ergon.ch/#/admin/projects/ergon-gradle-goodies-versioning-sample)
+
 ***
 
 # Optionen
