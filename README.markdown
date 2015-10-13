@@ -2,6 +2,7 @@
 
 - [Gradle Goodies Versioning Plugin](?src=versioning_plugin.md)
 - [Another Presentation](?src=sample.md)
+- [Belimo Presentation](?src=belimo.md)
 - [original](http://danieltao.com/slidedown)
 
 ***
