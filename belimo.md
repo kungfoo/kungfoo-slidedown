@@ -8,7 +8,7 @@
 
 # CSP 1.33.5
 
-![alt text](images/1.33.5-watchdogStandV1.33.5.pn "CSP 1.33.5")
+![alt text](images/1.33.5-watchdogStandV1.33.5.png "CSP 1.33.5")
 
 ***
 
