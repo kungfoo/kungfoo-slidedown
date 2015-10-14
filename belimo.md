@@ -1,7 +1,7 @@
 # Überwachte Services in sharedlogic
 
 * Aktuell wird das EV2 mit der CSP Version 1.33.5 produziert. Diese enthält nicht alle bekannten Verbesserungen an der Watchdog Infrastruktur.
-* Einige wenige spezial EV2 (6 Wege IPV) werden mit der CSP Version 2.2.2 produziert
+* Einige wenige EV2 (6 Wege IPV) werden mit der CSP Version 2.2.2 produziert
 * Alle Versionen sind vom Jetty Memory Leak betroffen
 
 ***
@@ -32,7 +32,7 @@
 
 # JVM Agent Schnittstelle
 
-Die Java Virtual Machine hat eine Schnittstelle, die genutzt werden kann um, über die Aktivitäten der Garbage Collection informiert zu werden. Mit einem zusätzlichen C-Programm, das im Kontext der VM läuft, können wir in Zukunft solche Probleme detektieren. 
+Die Java Virtual Machine hat eine Schnittstelle, die genutzt werden kann um, über die Aktivitäten der Garbage Collection informiert zu werden. Mit einem zusätzlichen C-Programm, das im Kontext der VM läuft, können wir in Zukunft solche Probleme detektieren.
 
 ![alt text](images/speicherleakAgent.png "Speicherleak")
 
