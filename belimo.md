@@ -22,3 +22,15 @@
 
 ![alt text](images/2.8.0-watchdogDenialOfService.png "CSP 2.8.0")
 
+***
+
+# Auswirkungen Speicherleck
+
+![alt text](images/speicherleak.png "Speicherleak")
+
+# JVM Agent Schnittstelle
+
+Die Java Virtual Machine hat eine Schnittstelle, die genutzt werden kann um, über die Aktivitäten der Garbage Collection informiert zu werden. Mit einem zusätzlichen C-Programm, das im Kontext der VM läuft, können wir in Zukunft solche Probleme detektieren. 
+
+![alt text](images/speicherleakAgent.png "Speicherleak")
+
