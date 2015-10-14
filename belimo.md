@@ -27,10 +27,12 @@
 # Auswirkungen Speicherleck
 
 ![alt text](images/speicherleak.png "Speicherleak")
+![alt text](images/LeakSim5Megs.png "Zykluszeiten")
+
 
 ***
 
-# JVM Agent Schnittstelle
+# JVM Agent Schnittstelle 
 
 Die Java Virtual Machine hat eine Schnittstelle, die genutzt werden kann um, über die Aktivitäten der Garbage Collection informiert zu werden. Mit einem zusätzlichen C-Programm, das im Kontext der VM läuft, können wir in Zukunft solche Probleme detektieren.
 
