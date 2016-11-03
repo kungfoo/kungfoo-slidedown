@@ -23,7 +23,7 @@
 
 ***
 
-# Defintion
+# Definition: Reactive programming
 
 Es gibt viele gute, genaue, beliebig komplizierte Erklärungen und Definitionen...
 
@@ -48,6 +48,7 @@ Reactive programming is programming with asynchronous data streams.
 
 # Was ist falsch mit 'jetzt'?
 
+- Latenz. Alles dauert. (See: 'Life beyond the illusion of Present' @jboner)
 - Blockieren...
 - Blockieren ist böse.
 
@@ -69,9 +70,10 @@ Reactive programming is programming with asynchronous data streams.
 
 # Was ist mit Future<T>?
 
-- Composen nicht (`peopleFuture().get().filter(p.age == 64)`?)
-- Schwer mehrere Calls zu koordinieren
+- Einfach für eine Stufe concurrent Ausführung
 - Immer noch auf das Resultat warten: `.get()` blockiert
+- Composen nicht (`peopleFuture().get().filter(p -> p.age >= 64)`?)
+- Schwer mehrere Calls zu koordinieren, vor allem wenn sie verschiedene Latenzen haben
 
 *** 
 
@@ -92,7 +94,8 @@ Aber: Immer noch Callbacks...
 ```java
 class Observable<T> {
 	Subscription subscribe(Observer<T> observer);
-	...
+	Subscription subscribe(Action1<T> onNext, Action1<Throwable> onError)
+	... // ^--- Kann man canceln...
 }
 ```
 
@@ -102,6 +105,10 @@ interface Observer<T> {
 	void onCompleted();
 	void onError(Throwable t);
 }
+```
+
+```
+(onNext)? (onCompleted | onError)
 ```
 
 ***
@@ -134,7 +141,7 @@ interface Observer<T> {
 - `take(int number)`
 - `distinct()`
 - `distinctUntilChanged()`
-- `zip(Observable<A> as, Observable<B bs)`
+- `zip(Observable<A> as, Observable<B bs, Func<A, B, R> f)`
 - `merge(Observable<A> a1, Obervable<A> a2)`
 - `debounce(long amount, TimeUnit unit)`
 - `map(Func<T, R> f)`
@@ -169,8 +176,8 @@ Observable<Attempt> attempts = Observable
 ***
 
 # Eingebaute `Scheduler`
+
 - `Schedulers.computation()`: Pool mit Grösse `n` (CPU Cores)
-- `.immediate()`: auf dem aktuellen Thread
 - `.io()`: I/O bound, wachsender Pool
 - `.trampoline()`: Queue auf aktuellem Thread
 - `.test()`: Testing; Zeit 'steuerbar'
@@ -178,3 +185,176 @@ Observable<Attempt> attempts = Observable
 
 ***
 
+# Search-As-You-Type
+
+```java
+// In der View/Activity
+Observable<String> queryTexts = RxSearchView.queryTextChanges(search)
+	.share()
+    .map(eventToText())
+    .startWith("");
+```
+
+***
+
+# Search-As-You-Type (contd.)
+```java
+// Im Presenter
+Observable<String> queryTexts = view.queryTexts()
+	.debounce(500, MILLISECONDS)
+	.distinctUntilChanged();
+
+Observable<Filter> filters = view.filters();
+
+Observable<DocumentQuery> queries =
+	combineLatest(queryTexts, filters, DocumentQuery::new);
+```
+***
+
+# Search-As-You-Type (contd.)
+
+```java
+// Repository, mit Retrofit
+interface DocumentsRepository {
+	Observable<Documents> documents(Observable<DocumentQuery> queries);
+}
+
+Observable<Documents> documents(Observable<DocumentQuery> queries) {
+	return queries
+		.map(q -> api.getDocuments(q))
+		.flatMap(toDocuments())
+		.subscribeOn(ioScheduler);
+}
+```
+
+***
+
+# Search-As-You-Type (contd.)
+
+###	Problem
+Der User tippt schon wieder, während wir auf den Request warten...
+
+### Lösung
+There's an operator for that.
+
+***
+
+# `Switch`
+
+> Convert an Observable that emits Observables into a single Observable that emits the items emitted by the most-recently-emitted of those Observables.
+
+***
+# 😱
+
+***
+
+![Everything is a stream!](images/everything-is-a-stream.jpg)
+
+***
+
+# 🤔  ⏱  🎉
+
+*** 
+
+![Switch Marble Diagram](images/switch.c.png)
+
+***
+
+# Search-As-You-Type (contd.)
+
+```java
+Observable<Documents> documents(Observable<DocumentQuery> queries) {
+	return switchOnNext(
+			queries.map(q -> api.getDocuments(q)
+				.map(toDocuments())
+				.subscribeOn(ioScheduler)
+			)
+		);
+}
+```
+Jedes mal, wenn `queries` emitted, bevor `getDocuments()` completed, wird der Call unsubscribed und auf das nächste Resultat geswitched.
+
+***
+
+# Search-As-You-Type (contd.)
+```java
+// Im Presenter
+documentsRepository.documents(queries)
+	.map(toViewModels())
+	.observeOn(uiScheduler)
+	.subscribe(
+		documents -> view.showDocuments(documents),
+		error -> {
+			view.showDialog("Failed to load documents.")
+				.subscribe(okClicked -> resubscribe())
+		}
+	);
+```
+
+***
+
+# 👍 🤘 🎉
+
+***
+
+# Okay, aber nicht _alles_ ist ein Stream...
+
+`Single<T>` hilft: `onSuccess(t)`, `onError(e)`.
+
+Wann:
+
+- Eine Operation die mit genau _einem_ Wert abgeschlossen wird.
+- `Observable` ist zu langsam für das Problem (gemessen!)
+- Es ist schlicht und einfach _kein Stream_.
+
+***
+
+# And now?
+
+***
+
+# 💊
+
+Take the red pill
+
+***
+
+# ReactiveX
+
+- eine komplette Spez, unter anderem von Erik Meijer
+- unabhängig von der Sprache
+- RxJava, RxJS, Rx.NET, RxLua, RxSwift, RxKotlin, RxScala, ...
+
+***
+
+# RxJava
+
+- initial Rx.NET
+- Netflix schreibt erste Version RxJava (public Release ca. 2013)
+- Netflix braucht RxJava unter anderem im Backend, weil das Frontend nutzt
+- Passt aber auch super ins UI
+
+***
+
+# An operator a day keeps the doctor away.
+
+
+***
+
+# Fragen?
+
+***
+
+# 🐬
+
+So long and thanks for all the fish!
+
+***
+
+# Links
+
+- [ReactiveX](http://reactivex.io)
+- [Reactive programming in the Netflix API](http://techblog.netflix.com/2013/02/rxjava-netflix-api.html)
+- [Grokking RxJava, 3 Parts](http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/)
+- [Life beyond the illusion of Present](https://www.youtube.com/watch?v=Nhz5jMXS8gE)
+- Buch: [Reactive programming with RxJava](http://shop.oreilly.com/product/0636920042228.do) (2017)
