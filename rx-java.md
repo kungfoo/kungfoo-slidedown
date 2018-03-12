@@ -3,17 +3,7 @@
 
 ***
 
-# You may know me from...
 
-***
-
-# Guava: Make Java great again.
-
-***
-
-# Gerrit: Honey, I shrunk the reviews
-
-***
 
 # 😊
 
@@ -333,6 +323,7 @@ Take the red pill
 - Netflix schreibt erste Version RxJava (public Release ca. 2013)
 - Netflix braucht RxJava unter anderem im Backend, weil das Frontend nutzt
 - Passt aber auch super ins UI
+- RxJava ist eine Implementation von Reactive Streams
 
 ***
 
