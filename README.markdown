@@ -85,23 +85,10 @@ on mobile devices.
 
 # How to use it
 
-Clone the following repository:
-
-```
-https://stash.ergon.ch/projects/STAFF/repos/ergon-slidedown/browse
-```
-
 - Make changes
 - Add you markdown file to the top of this file (to get a link)
-- Push to master branch
-- Wait 1 min: Published to http://egge.ergon.ch/static/ergon-slidedown/
-- Have fun
-
-Direct link to your presentation:
-
-```
-http://egge.ergon.ch/static/ergon-slidedown/?src=your_markdown.md
-```
+- `docker-compose up -d`
+- Navigate to `localhost:8080`, change code, reload. Have fun.
 
 ***
 
