@@ -1,4 +1,4 @@
-# Ergon Slidedown
+# kungfoo's Slidedown
 
 - [Gradle Goodies Versioning Plugin](?src=versioning_plugin.md)
 - [Try giving a fuck](?src=giving-a-fuck.md)
