@@ -1,9 +1,7 @@
 ## git gud
 ### or a semi-deep dive into git internals and advanced use cases
 
-***
-
-> I apologize for the use of console tools in this talk, but it's the only UI for git I truly know. 
+> I apologize for the use of console tools in this talk, but it's the single UI that works across all platforms.
 
 ***
 
@@ -38,7 +36,7 @@ if a file content exists twice or needs to be transfered, it only needs to be do
 
 ***
 
-# The tree
+## The tree
 
 Trees are pointers to other trees and blobs.
 
@@ -89,9 +87,7 @@ Later commits in history can have *multiple* parents.
 
 ## Tags
 
-The final object type are *tags*.
-
-Is a shorthand name for a specific commit.
+The final object type are *tags*, which are basically shorthand names for a specific commits.
 
     tag 167\0
 
@@ -127,6 +123,9 @@ A branch is nothing more than a simple file stored in `.git/refs/heads/` with th
 
 ![The data model so far](images/git-model.png)
 
+    colored: immutable, expensive objects
+    grey:    cheap, mutable pointers to commits
+
 ***
 
 # Demo time
@@ -142,12 +141,14 @@ A branch is nothing more than a simple file stored in `.git/refs/heads/` with th
   * `tig`
 
 
-
 ***
 
 ## Amending a commit
 
 You already commited, but need to add some more changes?
+
+* `git commit --amend`
+* Edit the last commit and recommit (optionally) with a new message.
 
 ***
 
@@ -168,14 +169,35 @@ You have work on a feature-branch and `master` has moved along.
 * fiddle with the history until satisfied
 * run rebase.
 
+
 ***
 
 ## Fixing up earlier commits
 
 You have already comitted some stuff earlier on, but no you need to change it later.
 
+## Bulk updates of commits
+
+Want to update all the commit messages on a branch?
+
+
 ***
 
 # User questions
 
+*** 
+
+## What do I do, if I fuck up?
+
+- Show `reset --hard` on bad rebase
+- `git reflog`
+- Remove sensitive data from a branch (`--fixup`)
+
+***
+
+# Questions? 🤔
+
+***
+
+# Excersises left to the reader
 
