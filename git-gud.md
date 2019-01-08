@@ -152,6 +152,17 @@ You already commited, but need to add some more changes?
 
 ***
 
+# Stashing changes / commiting half of them
+
+You worked on multiple things at the same time 😔. Now you need to sort out the mess 😊.
+
+* Tools like `tig` or `gitg` are your friend when staging individual *hunks*.
+* Stage part of the files using one of the tools.
+* `git stash save "My horrible mess"`
+
+
+***
+
 ## Rebasing a branch on top of another one
 
 You have work on a feature-branch and `master` has moved along.
@@ -175,6 +186,8 @@ You have work on a feature-branch and `master` has moved along.
 ## Fixing up earlier commits
 
 You have already comitted some stuff earlier on, but no you need to change it later.
+
+***
 
 ## Bulk updates of commits
 
@@ -201,3 +214,21 @@ Want to update all the commit messages on a branch?
 
 # Excersises left to the reader
 
+***
+
+
+## Tags
+
+Tags are stored in the obect database and thus are *immutable*. Usually, you'll never want to move tags around.
+
+You create these tags using
+
+    git tag -a 0.1.1 -m "Releasing 0.1.1 now"
+
+## Lightweight tags
+
+Lightweight tags on the other hand are stored (like branches) in `.git/refs/tags` and are mutable (not desirable).
+
+You can create them using
+
+    git tag 0.1.1 
