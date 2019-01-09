@@ -160,6 +160,19 @@ You worked on multiple things at the same time 😔. Now you need to sort out th
 * Stage part of the files using one of the tools.
 * `git stash save "My horrible mess"`
 
+***
+
+## Cherry picking
+
+You have commits on one branch, you want on another one as well. (for example a hotfix).
+
+* `git checkout {target-branch}`
+* `git cherry-pick {the-commit-you-want}`
+
+or
+
+* `git cherry-pick feature/some-feature feature/some-feature~4`
+   cherry pick a range of commits
 
 ***
 
@@ -187,35 +200,32 @@ You have work on a feature-branch and `master` has moved along.
 
 You have already comitted some stuff earlier on, but no you need to change it later.
 
+* `git commit --fixup={sha}`
+* `git rebase -i --autosquash {branch}`
+
+
 ***
 
 ## Bulk updates of commits
 
 Want to update all the commit messages on a branch?
 
+* Use `git rebase -i {target-branch}` and edit the rebase todo list:
+  * `pick`: Take this commit as is
+  * `reword`: Rewrite the message of this commit
+  * `edit`: Stop and edit the commit and (potentially) the message
+  * `skip`: Skip the commit
+  * (...)
 
 ***
 
-# User questions
+## Finding the commit where something broke
 
-*** 
-
-## What do I do, if I fuck up?
-
-- Show `reset --hard` on bad rebase
-- `git reflog`
-- Remove sensitive data from a branch (`--fixup`)
+* `git bisect` is your friend
+* mark commits as `good` or `bad` and do binary search to find the first bad one
+* (if you have tests to prove it): `git bisect run ./gradlew test`
 
 ***
-
-# Questions? 🤔
-
-***
-
-# Excersises left to the reader
-
-***
-
 
 ## Tags
 
@@ -232,3 +242,33 @@ Lightweight tags on the other hand are stored (like branches) in `.git/refs/tags
 You can create them using
 
     git tag 0.1.1 
+
+***
+
+# Submitted questions
+
+*** 
+
+## What do I do, if I fuck up?
+
+- Show `git rebase --abort` on bad rebase
+- You can always `git reset --hard` if you commited your work
+- `git reflog`
+- Remove sensitive data from a branch (`--fixup`)
+
+***
+
+# Questions? 🤔
+
+***
+
+# Excersises left to the reader
+
+***
+
+## `git filter-branch`
+
+The BFG of git, basically walk over the history and rewrite things.
+
+> Please don't. If you absolutely must, do make backups before and progress with extrem caution.
+
