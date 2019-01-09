@@ -1,7 +1,7 @@
 ## git gud
-### or a semi-deep dive into git internals and advanced use cases
+### or a semi-deep dive into git internals and 'advanced' use cases
 
-> I apologize for the use of console tools in this talk, but it's the single UI that works across all platforms.
+> I apologize for the use of console tools in this talk, but it's the single UI that works (for me) across all platforms.
 
 ***
 
@@ -72,6 +72,8 @@ Commits store history!
 
 ## A second commit
 
+Later commits in history can have *multiple* parents.
+
     commit 261\0
 
     tree 863420c0e98ee71d9b8135139185d6e3d9b88797
@@ -79,9 +81,8 @@ Commits store history!
     author Silvio Heuberger <silvio.heuberger@beekeeper.io> 1546954478 +0100
     committer Silvio Heuberger <silvio.heuberger@beekeeper.io> 1546954478 +0100
 
-    Add some content
+    Add some more content
 
-Later commits in history can have *multiple* parents.
 
 ***
 
@@ -159,6 +160,9 @@ You worked on multiple things at the same time 😔. Now you need to sort out th
 * Tools like `tig` or `gitg` are your friend when staging individual *hunks*.
 * Stage part of the files using one of the tools.
 * `git stash save "My horrible mess"`
+* `git stash list -p`
+* Even though the stash is a stack (you can `pop` from it), you can also apply from lower 'registers'.
+
 
 ***
 
@@ -241,7 +245,13 @@ Lightweight tags on the other hand are stored (like branches) in `.git/refs/tags
 
 You can create them using
 
-    git tag 0.1.1 
+    git tag 0.1.1
+
+***
+
+## Describing where you're at
+
+    git describe --tags --always --long
 
 ***
 
@@ -251,7 +261,7 @@ You can create them using
 
 ## What do I do, if I fuck up?
 
-- Show `git rebase --abort` on bad rebase
+- You can always `git rebase --abort` on bad rebase, `git cherry-pick --abort` ...
 - You can always `git reset --hard` if you commited your work
 - `git reflog`
 - Remove sensitive data from a branch (`--fixup`)
@@ -260,15 +270,26 @@ You can create them using
 
 # Questions? 🤔
 
+
+
+
+
+
+
+
 ***
 
 # Excersises left to the reader
+
+## Install completions
+
+* for your `zsh` or `bash` or whatever: install git completions!
 
 ***
 
 ## `git filter-branch`
 
-The BFG of git, basically walk over the history and rewrite things.
+The BFG of git, basically walk over the history and rewrite entire branches.
 
-> Please don't. If you absolutely must, do make backups before and progress with extrem caution.
+> Please don't. If you absolutely must, do make backups before and progress with extreme caution!
 
