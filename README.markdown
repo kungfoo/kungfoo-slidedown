@@ -1,5 +1,6 @@
 # kungfoo's Slidedown
 
+- [git gud: A semi-deep dive into git...](?src=git-gud.md)
 - [Gradle Goodies Versioning Plugin](?src=versioning_plugin.md)
 - [Try giving a fuck](?src=giving-a-fuck.md)
 - [RxJava: How I learned to stop worrying...](?src=rx-java.md)

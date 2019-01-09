@@ -28,6 +28,9 @@
 
             return params;
         };
+
+
+
         // console.log(document.location);
         var mdSource = parseQuery(document.location.search).src || 'README.markdown';
         Slidedown.fromXHR(mdSource).to('#slides');
