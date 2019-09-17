@@ -122,7 +122,7 @@ A branch is nothing more than a simple file stored in `.git/refs/heads/` with th
 
 # The data model (contd.)
 
-![The data model so far](images/git-model.png)
+![The data model so far](images/git-gud/git-model.png)
 
     colored: immutable, expensive objects
     grey:    cheap, mutable pointers to commits
