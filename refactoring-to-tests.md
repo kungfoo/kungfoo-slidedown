@@ -13,7 +13,7 @@
 
 ***
 
-## So what do I even mean?
+## On test code
 
 Good code with good design (on the API/component/class level) should be _easy_ and _fast_ to test.
 
