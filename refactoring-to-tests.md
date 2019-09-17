@@ -4,17 +4,26 @@
 
 ***
 
+## Why do we test?
+
+- We want our code to work _now_ and _continue to work in the future_.
+- QA should find _nothing_.
+- End users should find _even less_.
+- Tests are our safety net for fearless change and refactoring.
+
+***
+
 ## So what do I even mean?
 
 Good code with good design (on the API/component/class level) should be _easy_ and _fast_ to test.
 
-Test code should be treated with the same care as all other code is; after all tests are your safety net when changing things.
+Test code should be treated with the _same care_ as all other code is; after all tests are your safety net when changing things.
 
-The simplicity of testing something (or lack thereof) can be seen as direct systems design feeback and as such provides additional value over the mere checking of things working.
+The simplicity of testing something (or lack thereof) can be seen as direct systems design feedback and as such provides additional value over the mere checking of things working.
 
 ***
 
-## On test automation
+## 🤖 On test automation
 
 Why do we automate?
 
@@ -22,7 +31,7 @@ Why do we automate?
 
 ***
 
-## The testing pyramid
+## 🐪 The testing pyramid
 
 ![testing pyramid](images/refactoring-to-tests/testing-pyramid.png)
 
@@ -31,7 +40,7 @@ Why do we automate?
 
 ***
 
-## The testing pyramid
+## 🐪 The testing pyramid
 
 While a great metaphor, it falls short in some areas:
 
@@ -74,26 +83,75 @@ In different words:
 
 ![ice cream cone of tests](images/refactoring-to-tests/testing-icecream-cone.jpg)
 
+***
+
+## 📋 Typical test structure
+
+1. Set up test data/objects.
+2. Call method/system under test.
+2. Assert that the expected results are returned.
+
+Also known as: Arrange, Act, Assert
+
+Or: Given, When, Then
+
 
 ***
 
-## ☑ On the subject of unit tests 
+## ✅ On the subject of unit tests 
 
 What is a unit anyway?
 
-There really is not solid definition and there need not be.
+There really is no singular definition and there need not be.
 
-In a functional language it might be one single function, in an object-oriented language it is probably more like a single class instance.
-
-***
-
-## Solitary and sociable unit tests
-
-TBD
+In a functional language it might be one single function, in an object-oriented language it is probably more like a single class instance. For some systems it even may be some classes collaborating.
 
 ***
 
-## Making code testable
+## ❗ What is definitely not a unit test?
+
+- Executing HTTP Requests
+- Hitting a real DB instance over the network
+- Setting up the entire system and clicking around on the UI
+
+However, UI tests can still be considered unit tests in modern frameworks, if we use the proper techniques to mock all collaborators. More on that later.
+
+***
+
+## 👷 👨‍🏭 Solitary and sociable unit tests
+
+A unit test typically replaces external collaborators with test doubles.
+
+![unit test](images/refactoring-to-tests/unit-test.png)
+
+***
+
+## 👷 👨‍🏭 Solitary and sociable unit tests
+
+![sociable and solitary testing](images/refactoring-to-tests/solitary-sociable.png)
+
+***
+
+## 👷 👨‍🏭 Solitary and sociable unit tests
+
+Some testers and systems fall more into one of the two camps: sociable vs. solitary tests.
+
+On other systems it may be necessary to use both to get your test suite to be amazing.
+
+_You should discuss this when pairing and when reviewing code._
+
+***
+
+## 🙉 When to definitely opt for solitude
+
+- Remove non-determinism when talking to remote services
+- Remove speed blocks (slow collaborators)
+- Most times: when talking to a database, filesystem, API
+
+
+***
+
+## ✅ Making code testable
 
 From [SOLID principles][4]
 
@@ -108,7 +166,7 @@ A class (can also be a function) should have a single responsibility. In [Uncle 
 
 ***
 
-## Employee
+## 👩‍⚕️ Employee
 
 ```java
 public class Employee {
@@ -127,7 +185,7 @@ Reasons to change:
 
 ***
 
-## Employee (much improved)
+## 👩‍⚕️ Employee (much improved)
 
 ```java
 public class Employee {
@@ -157,7 +215,7 @@ These are much better separated into single responsibilities. You can see that t
 
 ***
 
-## Dependency Injection
+## 💉 Dependency Injection
 
 One of the most common places where you depend on concrete implementations is _instantiation_.
 
@@ -167,7 +225,7 @@ There are frameworks to help you assemble the runtime object graph, but usually 
 
 ***
 
-## Dependency Injection
+## 💉 Dependency Injection
 
 ```java
 public class PaymentProcessor {
@@ -189,7 +247,7 @@ public class PaymentProcessor {
 
 ***
 
-## Dependency Injection
+## 💉 Dependency Injection
 
 ```java
 public interface PaymentService {
@@ -210,11 +268,11 @@ public class PaymentProcessor {
 
 ***
 
-## Dependency Injection
+## 💉 Dependency Injection
 
-Beware of `static` utility helper things: They are impossible to inject/substitute and should in general be steered away from for anything you may want to substitute.
+Beware of `static` utility helper things: They are next to impossible to inject/substitute and should in general be steered away from for anything you may want to substitute.
 
-Of course, don't follow this dogmatically but apply some reasoning.
+Of course, don't follow this dogmatically but apply some solid (no pun intended) reasoning.
 
 ***
 
@@ -232,42 +290,64 @@ TBD:
 ***
 
 
-# Questions 
+# ❓ Questions
 
 ***
 
-# Exercise time 
+# 👟 Exercise time 
 
 ***
 
 ## Setup
 
 1. Form groups of 2-3 people, that will pair-/mob-program.
-2. Grab a computer
-3. Clone Exercise repo: 
+2. Grab _one_ computer and _one_ large screen.
+3. Clone Exercise repo: `git clone git@github.com:beekpr/refactoring-to-test-workshop.git`
 
 ***
 
-## Exercise 1
+## 👟 Exercise 1
 
-1. Find out what tests exist.
+1. Find out what tests already exist.
 2. Discuss what type of tests they are and what they are actually testing.
-3. Share back
+3. Share back.
 
 ***
 
-## Exercise 2
+## 🏃‍♂️ Exercise 2
 
 1. Can you restructure the code so it can be tested more easily?
 2. Give it a try and refactor the tests along with the changes.
 
 ***
 
-## 
+## 🧪 Proposed analysis
 
-# 
+***
 
-# The End
+## ✅ Tests
+
+- There is one integration test actually calling the REST API.
+- It is testing a fair amount of things, but has to fiddle with HTTP things and details quite a bit.
+- It is still quite fast to run on a decent machine.
+
+***
+
+## 💻 System under test
+
+It appears the REST API is doing multiple things at the same time:
+
+- Deal with HTTP layer
+- 
+
+
+***
+
+## 🧪 Proposed solution
+
+***
+
+# ⛳ The End
 
 ***
 
