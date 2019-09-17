@@ -184,7 +184,13 @@ public interface PaymentService {
 }
 
 public class PaymentProcessor {
+  public final PaymentService paymentService;
 
+  public PaymentProcess(PaymentService paymentService) {
+    this.paymentService = paymentService;
+  }
+
+  public Result process() { /* same as before */ }
 }
 ```
 
