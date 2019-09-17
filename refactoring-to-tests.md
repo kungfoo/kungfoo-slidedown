@@ -1,4 +1,4 @@
-# Refactoring to tests
+# Refactoring to test
 ## Or: How can tests provide design feedback?
 ## Or: What tests do we want to write?
 
@@ -56,6 +56,7 @@ Other people tried different naming and other improvements, but the idea remains
 
 - good coverage
 - blazing fast to run
+- no false positives/negatives and flakes
 - simple to maintain
 - simple to add new test cases
 
@@ -120,7 +121,7 @@ However, UI tests can still be considered unit tests in modern frameworks, if we
 
 ## 👷 👨‍🏭 Solitary and sociable unit tests
 
-A unit test typically replaces external collaborators with test doubles.
+A unit test typically replaces external collaborators with test doubles (come back to that later).
 
 ![unit test](images/refactoring-to-tests/unit-test.png)
 
@@ -134,9 +135,12 @@ A unit test typically replaces external collaborators with test doubles.
 
 ## 👷 👨‍🏭 Solitary and sociable unit tests
 
-Some testers and systems fall more into one of the two camps: sociable vs. solitary tests.
+Some testers prefer and systems can be more favorable towards: 
 
-On other systems it may be necessary to use both to get your test suite to be amazing.
+- sociable unit tests
+- solitary unit tests
+
+It is probably beneficial to use both to get your test suite to be amazing.
 
 _You should discuss this when pairing and when reviewing code._
 
@@ -229,7 +233,8 @@ There are frameworks to help you assemble the runtime object graph, but usually 
 
 ```java
 public class PaymentProcessor {
-  private final CreditCardService paymentService = new CreditCardService(...);
+  private final CreditCardService paymentService =
+    new CreditCardService(...);
 
   public Result process(Payment payment) {
     var result = new Result();
@@ -276,15 +281,14 @@ Of course, don't follow this dogmatically but apply some solid (no pun intended)
 
 ***
 
-## 🕵 Mocks, Stubs, Spies
+## 🕵 Mocks, Stubs, Spies, Fakes
 
-Once we have dependencies injectable we start talking about _mocking_ and _stubbing_ them for testing.
+Once we have dependencies injectable we start talking about providing _test doubles_ for them. These need not be _mocks_!
 
-TBD:
-
-- What are stubs
-- What are mocks
-- How are they useful
+- Fakes: Working implementations, but take shortcuts (return an empty list)
+- Stubs: Provide canned answers to calls made during tests.
+- Spies: Stubs that also record some information on how they were called.
+- Mocks: pre-programmed with canned answers and expectations which form a specification of the calls they are expected to receive.
 
 
 ***
@@ -327,23 +331,124 @@ TBD:
 
 ## ✅ Tests
 
-- There is one integration test actually calling the REST API.
+- There is one _integration test_ actually calling the REST API.
 - It is testing a fair amount of things, but has to fiddle with HTTP things and details quite a bit.
 - It is still quite fast to run on a decent machine.
+- Fairly low level in terms of abstraction and types being used, things are basically `Maps` and `String`.
 
 ***
 
 ## 💻 System under test
 
-It appears the REST API is doing multiple things at the same time:
+It appears the endpoint for `POST /message` is doing a multitude of things:
 
 - Deal with HTTP layer
-- 
+- Validate phone numbers
+- Validate text messages to send
+- Send the actual messages
+- Deal with exceptions that can happen while sending
+- ...
+
+***
+
+## 💻 System under test
+
+There is however no other way to test this code, short of invoking the methods directly and mocking http things, which seems messy.
+
+Testing the handling of upstream failures such as network errors is _really hard_.
 
 
 ***
 
 ## 🧪 Proposed solution
+
+- `TextMessage`, as a value type for text messages
+- `TextMessageValidator` to encode the invariants of text messages
+  - Must be of adequate length
+  - Must use a valid phone number, country code etc.
+  - May not contain placeholder text anymore
+- `TextMessageValidationResult` as a type to collect multiple errors
+  - So we can be nice to the user
+  - So we can be nice to people testing things.
+
+***
+
+## 🧪 Proposed solution
+
+All of these can easily be unit tested in isolation of any of the other details.
+
+We can ensure all the invariants are met, that we have nice error messages and so on...
+
+***
+
+## 🧪 Proposed solution
+
+```java
+@Test
+public void invalidCountryShouldReturnANiceError() {
+  given("+999123456789", "This is a test message.")
+    .isInvalid("Please use a valid country code");
+}
+```
+Use a builder for test cases, for fluent, prose-like building of your tests.
+
+Or use _spock_ for data driven tests (will be discussed in a future session).
+
+***
+
+## 🧪 Proposed solution
+
+Introduce a service interface
+
+```java
+public interface TextMessageService {
+  SentTextMessage send(TextMessage message)
+    throws TextMessageServiceException;
+
+  Optional<SentTextMessage> fetch(String messageId)
+    throws TextMessageServiceException;
+}
+```
+
+***
+
+## 🧪 Proposed solution
+
+Enable dependency injection on the REST API resource:
+
+```java
+public class MessageResource {
+  public MessageResource(
+    TextMessageService messageService,
+    TextMessageValidator messageValidator
+  ) { /* ... */ }
+}
+```
+
+***
+
+## 🧪 Proposed solution
+
+Now you can add test cases for when the collaborator service throws due to network blips, solar winds and other oddities easily.
+
+***
+
+## 🧪 Proposed solution
+
+```java
+@Test
+public void itShouldHandleUpstreamErrorsAs500s() {
+  when(messageService.send(any(TextMessage.class)))
+    .thenThrow(
+      new TextMessageServiceException("500 Internal Service Error")
+    );
+
+  Response response = messageResource
+    .post("+1230000", "This is a text message");
+
+  assertThat(response.getStatus(), is(500));
+}
+```
 
 ***
 
