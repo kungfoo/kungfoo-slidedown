@@ -10,6 +10,16 @@ Good code with good design (on the API/component/class level) should be _easy_ a
 
 Test code should be treated with the same care as all other code is; after all tests are your safety net when changing things.
 
+The simplicity of testing something (or lack thereof) can be seen as direct systems design feeback and as such provides additional value over the mere checking of things working.
+
+***
+
+## On test automation
+
+Why do we automate?
+
+![build pipeline](images/refactoring-to-tests/build-pipeline.png)
+
 ***
 
 ## The testing pyramid
@@ -17,9 +27,11 @@ Test code should be treated with the same care as all other code is; after all t
 ![testing pyramid](images/refactoring-to-tests/testing-pyramid.png)
 
 
+[Martin Fowler, Practical Testing Pyramid][1]
+
 ***
 
-## The testing pyramid (contd.)
+## The testing pyramid
 
 While a great metaphor, it falls short in some areas:
 
@@ -27,12 +39,14 @@ While a great metaphor, it falls short in some areas:
 - a bit simplistic
 - just call your tests 'service tests' and you're okay.
 
+Other people tried different naming and other improvements, but the idea remains the same.
+
 ***
 
 ## 👍 What we want
 
 - good coverage
-- fast to run
+- blazing fast to run
 - simple to maintain
 - simple to add new test cases
 
