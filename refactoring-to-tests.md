@@ -4,7 +4,7 @@
 
 ***
 
-## Why do we test?
+## 💊 Why do we test?
 
 - We want our code to work _now_ and _continue to work in the future_.
 - QA should find _nothing_.
@@ -13,7 +13,7 @@
 
 ***
 
-## On test code
+## 🤞 On test code
 
 Good code with good design (on the API/component/class level) should be _easy_ and _fast_ to test.
 
