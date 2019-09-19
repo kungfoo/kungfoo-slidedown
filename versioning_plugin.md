@@ -150,7 +150,7 @@ Was ist jetzt genau mit SNAPSHOT?
 
 ***
 
-![NOPE!](images/snapshot-nope.jpg)
+![NOPE!](images/versioning/snapshot-nope.jpg)
 
 _Existiert nicht mehr._
 
@@ -229,4 +229,4 @@ build.version=0.0.3-3-gd4d087f
 ***
 
 # Fragen?
-![NOPE!](images/no-idea.png)
+![NOPE!](images/versioning/no-idea.png)

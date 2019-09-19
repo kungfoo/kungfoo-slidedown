@@ -31,7 +31,7 @@ Reactive programming is programming with asynchronous data streams.
 
 ***
 
-![Grafik mit Achsen: eines, viele; jetzt, später](images/achse-der-observables.jpg)
+![Grafik mit Achsen: eines, viele; jetzt, später](images/rxjava/achse-der-observables.jpg)
 
 
 ***
@@ -116,7 +116,7 @@ interface Observer<T> {
 
 ***
 
-![Everything is a stream!](images/everything-is-a-stream.jpg)
+![Everything is a stream!](images/rxjava/everything-is-a-stream.jpg)
 
 ***
 
@@ -238,7 +238,7 @@ There's an operator for that.
 
 ***
 
-![Everything is a stream!](images/everything-is-a-stream.jpg)
+![Everything is a stream!](images/rxjava/everything-is-a-stream.jpg)
 
 ***
 
@@ -246,7 +246,7 @@ There's an operator for that.
 
 *** 
 
-![Switch Marble Diagram](images/switch.c.png)
+![Switch Marble Diagram](images/rxjava/switch.c.png)
 
 ***
 
