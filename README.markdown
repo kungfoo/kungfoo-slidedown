@@ -1,5 +1,6 @@
 # kungfoo's Slidedown
 
+- [10 things I learned working at a SaaS scale-up](?src=10-things-i-learned.md)
 - [Refactoring to tests](?src=refactoring-to-tests.md)
 - [git gud: A semi-deep dive into git...](?src=git-gud.md)
 - [Gradle Goodies Versioning Plugin](?src=versioning_plugin.md)
