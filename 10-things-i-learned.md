@@ -34,13 +34,15 @@ A SaaS scale-up providing a work-force communication tool and integration platfo
 
 ## 1: 🔬 (micro)service architectures are distributed systems
 
+Might be stating the obvious, but:
+
 You now have all of these (and more...) problems:
 
 - The network _is_ unreliable
 - Computers break, nodes go bad
 - Slow consumers
 - Things just crash
-- ... 
+- Clock drift
 
 ---
 
@@ -59,7 +61,7 @@ You now have all of these (and more...) problems:
 
 ## 3: 🌍 Standardization is key
 
-> Cool, so now you have a real zoo of applications running on kubernetes...
+> Cool, so now you have a venerable zoo of applications running on kubernetes...
 
 But every service...
 
@@ -82,7 +84,7 @@ Most data is kept per `tenant-id` or per `tenant-id` and `user-id`
 
 ## 4: 🙋‍♀️ 🙋🏾‍♂️ Key infrastructure services need their own OPS team
 
-- Managed DB instances
+- Managed DB instances/schemas
 - Cloud Nodes
 - Kubernetes Clusters
 - Message Queues
@@ -102,19 +104,45 @@ Consumer driven contract tests would be really nice to have
 
 ---
 
-## 6: 🖥 Monitoring and logging is key
+## 6: 💻 Monitor, log  and measure everything
+
+### Logging
 
 - Every request should get a `TRACE_ID` header when entering the system
 - Needs to be passed on all the way to every service touching data
 - Should be in present in any logging context
+- Never log PII
 
-Monitor:
+---
+
+### Monitor
 
 - Resource usage
 - Queue lengths
-- Message rates
+- Message rates and dead-letter queuing rates
 - Request rates and error rates per service and endpoint
 - API Performance per service and endpoint
+
+Aggregate all of that in one place.
+
+---
+
+### Measure
+
+Measure what users _actually_ do to verify your assumptions.
+
+- Usage of features
+- Interaction patterns
+
+For example:
+
+- Built a new search engine using drill-down into categories
+- Want to know if real life search results are any good
+
+Measure:
+
+- Which item do people click after searching or do they search _again_?
+- Do they use the drill-down functions?
 
 ---
 
@@ -133,6 +161,8 @@ Monitor:
 - Swap out a node gone bad: mildly interesting
 - Cluster access needs to be limited in time and audited
 
+But not every project needs orchestration.
+
 ---
 
 ## 9: 🔨 Continuous delivery is cool
@@ -149,7 +179,7 @@ Monitor:
 ## 10: 📟 Devops means you _own_ the services you build
 
 - You will get paged (during office hours) if it breaks
-- Write playbooks for other people to fix stuff
+- Write and share playbooks for other people to fix stuff
 - When in doubt: Try turning it off and on again: `kubectl delete pod misbehaving-service-f6731`
 
 ---
