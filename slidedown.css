@@ -10,7 +10,7 @@ html, body {
   padding: 0;
 
   overflow-x: hidden;
-  background-image: url(Beekeeper_Logo.svg);
+  background-image: url(ergon_logo.png);
   background-size: auto 50px;
   background-repeat:      no-repeat;
   background-position: 95% 95%;
@@ -144,7 +144,7 @@ pre {
 
   font-size: 90%;
 
-  color: #F46C63;
+  color: #c7254e;
   background-color: #f9f2f4;
   border-radius: 4px;
 }
