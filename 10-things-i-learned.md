@@ -7,8 +7,10 @@
 What did I do while _not_ at ergon?
 
 - Had my half-year parental leave 😉
+- Wrote a 2d-game I never published
 - Worked at an established company that imploded due to disagreements on strategy
-- Proceeded to work a [beekeeper.io](https://beekeeper.io) for 2.5y
+- Proceeded to work at [beekeeper.io](https://beekeeper.io) for 2.5y
+    - Tech Lead and Swarm Lead for a cross-functional swarm of 8
 
 ---
 
@@ -25,7 +27,7 @@ A SaaS scale-up providing a work-force communication tool and integration platfo
 ## 🚀 Techie Stuff
 
 - (Micro)service architecture
-- Python, Java, JS, Swift, Kotlin and Scala as first class citizens
+- Python, Java, JS, Swift, Kotlin as first class citizens
 - Docker for everything
 - Kubernetes for orchestration
 - Runs in the cloud
